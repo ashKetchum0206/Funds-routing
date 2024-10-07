@@ -10,8 +10,25 @@
 <body>
     <h1>Efficient routing of funds in the system</h1>
     <form action="/solve" method="POST">
-        <label for="graphInput">Enter graph details</label>
-        <textarea name="graphInput" id="graphInput" rows="10" cols="50"></textarea><br>
+
+        <label for="node_number">Enter number of nodes</label>
+        <textarea name="node_number" id="node_number" rows="1" cols="1"></textarea><br>
+
+        <label for="edge_number">Enter number of edges</label>
+        <textarea name="edge_number" id="edge_number" rows="1" cols="1"></textarea><br>
+        
+        <label for="edges">Enter edges</label>
+        <textarea name="edges" id="edges" rows="5" cols="25"></textarea><br>
+
+        <label for="sources">Enter the souces</label>
+        <textarea name="sources" id="sources" rows="1" cols="1"></textarea><br>
+
+        <label for="sinks">Enter the sinks</label>
+        <textarea name="sinks" id="sinks" rows="1" cols="1"></textarea><br>
+
+        <label for="source_capacities">Enter the source capacities</label>
+        <textarea name="source_capacities" id="source_capacities" rows="1" cols="1"></textarea><br>
+
         <button type="submit">Submit</button>
     </form>
 
@@ -19,6 +36,6 @@
     <h2>Graph Output:</h2>
     <img src="{{ image_path }}" alt="Graph Visualization">
     {% endif %}
-    
+
 </body>
 </html>

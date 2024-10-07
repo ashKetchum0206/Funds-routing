@@ -123,38 +123,32 @@ def max_flow_multiple_sources_sinks(graph, sources, sinks, source_capacities, si
     dot.render('static/Graph_visualization', view=False)
     return max_flow
 
-def network_flow_api(graph_input):
+def network_flow_api(node_number, edge_number, edges, sources, sinks, source_capacities):
 
-    lines = graph_input.split('\n')
-    ptr = 0
-    V = int(lines[ptr].strip()[0])
-    ptr+=1 
-    E = int(lines[ptr].strip()[0])
-    ptr+=1 
+    V = int(node_number.split(' ')[0])
+    E = int(edge_number.split(' ')[0])
     graph = Graph(V)
-
+    edges = edges.split('\n')
+    print(edges)
     for i in range(E):
-        u,v,w = lines[ptr].split()
+        u,v,w = edges[i].strip().split(' ')
         graph.add_edge(int(u),int(v),int(w))
-        ptr+=1
+    
+    sources = sources.strip().split(' ')
+    for i in range(len(sources)):
+        sources[i] = int(sources[i])
 
-    sources = []
-    for src in lines[ptr].split():
-        sources.append(int(src))
-    ptr+=1
+    sinks = sinks.strip().split(' ')
+    for i in range(len(sinks)):
+        sinks[i] = int(sinks[i])
 
-    sinks = []
-    for sink in lines[ptr].split():
-        sinks.append(int(sink))
-    ptr+=1
-
-    source_capacities = []
-    for c in lines[ptr].split():
-        source_capacities.append(int(c))
+    src_capacities = []
+    for c in source_capacities.split(' '):
+        src_capacities.append(int(c))
 
     sink_capacities = []
     # for c in lines[ptr].split():
     #     sink_capacities.append(int(c))
 
-    max_flow = max_flow_multiple_sources_sinks(graph, sources, sinks, source_capacities, sink_capacities)
+    max_flow = max_flow_multiple_sources_sinks(graph, sources, sinks, src_capacities, sink_capacities)
     return max_flow
