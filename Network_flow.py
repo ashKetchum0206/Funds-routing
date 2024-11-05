@@ -59,7 +59,7 @@ class Graph:
         return max_flow
 
 # Function to handle multiple sources and sinks
-def max_flow_multiple_sources_sinks(graph, sources, sinks, source_capacities, sink_capacities):
+def max_flow_multiple_sources_sinks(graph, sources, sinks, source_capacities, sink_capacities, source_names):
     V = graph.V
     super_source = V      # New super source index
     super_sink = V + 1    # New super sink index
@@ -96,11 +96,11 @@ def max_flow_multiple_sources_sinks(graph, sources, sinks, source_capacities, si
             # dot.node(str(u), label=f'Super Sink', color='blue', shape='doublecircle')
             continue
         elif u in sources:
-            dot.node(str(u), label=f'Node {u}', color='red', shape='doublecircle')
+            dot.node(str(u), label=f'{source_names[u]}', color='red', shape='doublecircle')
         elif u in sinks:
-            dot.node(str(u), label=f'Node {u}', color='blue', shape='doublecircle')
+            dot.node(str(u), label=f'{source_names[u]}', color='blue', shape='doublecircle')
         else:
-            dot.node(str(u), label=f'Node {u}')
+            dot.node(str(u), label=f'{source_names[u]}')
 
     # Adding edges based on the augmented_graph's flow information
     for u in range(augmented_graph.V):
@@ -123,7 +123,7 @@ def max_flow_multiple_sources_sinks(graph, sources, sinks, source_capacities, si
     dot.render('static/Graph_visualization', view=False)
     return max_flow
 
-def network_flow_api(node_number, edge_number, edges, sources, sinks, source_capacities):
+def network_flow_api(node_number, edge_number, edges, sources, sinks, source_capacities, source_names):
 
     V = int(node_number.split(' ')[0])
     E = int(edge_number.split(' ')[0])
@@ -150,5 +150,10 @@ def network_flow_api(node_number, edge_number, edges, sources, sinks, source_cap
     # for c in lines[ptr].split():
     #     sink_capacities.append(int(c))
 
-    max_flow = max_flow_multiple_sources_sinks(graph, sources, sinks, src_capacities, sink_capacities)
+    src_names = []
+    source_names = source_names.strip().split('\n')
+    for src in source_names:
+        src_names.append(src)
+
+    max_flow = max_flow_multiple_sources_sinks(graph, sources, sinks, src_capacities, sink_capacities, src_names)
     return max_flow

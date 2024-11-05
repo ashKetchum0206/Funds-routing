@@ -17,9 +17,10 @@ def solve():
     sources = request.form['sources']
     sinks = request.form['sinks']
     source_capacities = request.form['source_capacities']
+    node_names = request.form['node_names']
     
     image_path = 'static/Graph_visualization.png'
-    network_flow_api(node_number, edge_number, edges, sources, sinks, source_capacities)
+    network_flow_api(node_number, edge_number, edges, sources, sinks, source_capacities, node_names)
     return render_template('result.html', image_path=image_path)
 
 if __name__ == '__main__':
